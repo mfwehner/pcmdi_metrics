@@ -87,8 +87,8 @@ time2=cdtime.reltime(tim[n-1],u)
 #y1=int(time1.torel('years since 0000-1-1').value)+1
 #y2=int(time2.torel('years since 0000-1-1').value)
 
-y1=int(time1.torel('years since 1800').value)+1
-y2=int(time2.torel('years since 1800').value) 
+y1=1800+int(time1.torel('years since 1800').value)+1
+y2=1800+int(time2.torel('years since 1800').value) 
 y0=y1
 
 daily_max=MV.zeros((y2-y1+1,nlat,nlon),MV.float)
@@ -158,7 +158,12 @@ daily_max.setattribute('name',var+'_annual_daily_max')
 daily_max.setdimattribute(0,'units','years since 00-01-01 00:00:00')
 daily_max.id=var+'_annual_daily_max'
 output.write(daily_max)
+# Delete these lines after you get it working
+# use these lines if the write fails
+# daily_max.setdimattribute(0,'values',time-1800)
+# daily_max.setdimattribute(0,'units','years since 1800-01-01 00:00:00')
 output.close()
+quit()
 
 print 'done with annual'
 w = sys.stdin.readline()
